@@ -6,6 +6,7 @@ import (
 	"github.com/owenrumney/go-github-pr-commenter/commenter"
 	"io/ioutil"
 	"os"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -66,7 +67,7 @@ func main() {
 	var validCommentWritten bool
 
 	for _, result := range results {
-		result.File = workingDir + strings.ReplaceAll(result.File, workspacePath, "")
+		result.File = path.Join(workingDir, strings.ReplaceAll(result.File, workspacePath, ""))
 		comment := generateErrorMessage(result)
 		fmt.Printf("Preparing comment for violation of rule %v in %v\n", result.RuleId, result.File)
 		if result.IsMultiLine() {
