@@ -2,12 +2,14 @@
 
 set -xe
 
-HORUSEC_VERSION=""
+HORUSEC_VERSION="latest"
 if [ "$INPUT_HORUSEC_VERSION" != "latest" ]; then
-  HORUSEC_VERSION="/tags/${INPUT_HORUSEC_VERSION}"
+  HORUSEC_VERSION="tags/${INPUT_HORUSEC_VERSION}"
 fi
 
-curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash -s ${HORUSEC_VERSION}
+wget -O - -q "$(wget -q https://api.github.com/repos/ZupIT/horusec/releases/${HORUSEC_VERSION} -O - | grep -m 1 -o -E "https://.+?horusec_linux_amd64" | head -n1)" > horusec_linux_amd64
+
+install horusec_linux_amd64 /usr/local/bin/horusec
 
 COMMENTER_VERSION="latest"
 
@@ -28,5 +30,5 @@ fi
 
 OUT_OPTION="results.json"
 
-horusec -p ${INPUT_WORKING_DIRECTORY} -o json -O ${OUT_OPTION} --log-level TRACE ${HORUSEC_ARGS_OPTION}
+horusec start -p ${INPUT_WORKING_DIRECTORY} -o json -O ${OUT_OPTION} --log-level TRACE "${HORUSEC_ARGS_OPTION}"
 commenter
