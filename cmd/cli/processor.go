@@ -39,8 +39,9 @@ func (v *vulnerability) EndLine() int {
 		re := regexp.MustCompile("[0-9]+")
 		numbersStr := re.FindAllString(v.Code, -1)
 		if len(numbersStr) == 2 {
-			number, err := strconv.Atoi(numbersStr[2])
+			number, err := strconv.Atoi(numbersStr[1])
 			if err != nil {
+				fmt.Println("Error convert string to integer")
 				return -1
 			}
 			return number
