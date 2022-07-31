@@ -1,0 +1,33 @@
+name: "Run horusec PR commenter"
+description: "Runs horusec and adds comments to the PR where checks have failed"
+author: "Alif Jafar"
+
+inputs:
+  github_token:
+    description: "GITHUB_TOKEN"
+    required: true
+  working_directory:
+    required: false
+    description: |
+      Directory to run the action on, from the repo root.
+      Default is . (root of the repository)
+    default: "."
+  horusec_version:
+    required: false
+    description: The version of horusec to use, defaults to latest
+    default: latest
+  arguments:
+    description: Arguments for horusec
+    required: false
+  soft_fail_commenter:
+    required: false
+    description: If set to `true` will silently comment without breaking the build
+outputs:
+  horusec-return-code:
+    description: "horusec command return code"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+branding:
+  icon: "git-pull-request"
+  color: "purple"
