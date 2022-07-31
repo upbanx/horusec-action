@@ -4,10 +4,10 @@ set -xe
 
 HORUSEC_VERSION=""
 if [ "$INPUT_HORUSEC_VERSION" != "latest" ]; then
-  HORUSEC_VERSION="/tags/${$INPUT_HORUSEC_VERSION}"
+  HORUSEC_VERSION="/tags/${INPUT_HORUSEC_VERSION}"
 fi
 
-curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash -s "${HORUSEC_VERSION}"
+curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash -s ${HORUSEC_VERSION}
 
 COMMENTER_VERSION="latest"
 
