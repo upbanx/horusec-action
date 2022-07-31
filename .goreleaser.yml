@@ -1,7 +1,7 @@
 before:
   hooks:
     - go mod tidy
-    - go mod .
+    - go mod vendor
 builds:
   -
     id: commenter
