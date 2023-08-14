@@ -2,14 +2,16 @@
 
 set -xe
 
-HORUSEC_VERSION="latest"
-if [ "$INPUT_HORUSEC_VERSION" != "latest" ]; then
-  HORUSEC_VERSION="tags/${INPUT_HORUSEC_VERSION}"
-fi
+#HORUSEC_VERSION="latest"
+#if [ "$INPUT_HORUSEC_VERSION" != "latest" ]; then
+#  HORUSEC_VERSION="tags/${INPUT_HORUSEC_VERSION}"
+#fi
+#
+#wget -O - -q "$(wget -q https://api.github.com/repos/ZupIT/horusec/releases/${HORUSEC_VERSION} -O - | grep -m 1 -o -E "https://.+?horusec_linux_amd64" | head -n1)" > horusec_linux_amd64
+#
+#install horusec_linux_amd64 /usr/local/bin/horusec
 
-wget -O - -q "$(wget -q https://api.github.com/repos/ZupIT/horusec/releases/${HORUSEC_VERSION} -O - | grep -m 1 -o -E "https://.+?horusec_linux_amd64" | head -n1)" > horusec_linux_amd64
-
-install horusec_linux_amd64 /usr/local/bin/horusec
+curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest-beta
 
 COMMENTER_VERSION="latest"
 
